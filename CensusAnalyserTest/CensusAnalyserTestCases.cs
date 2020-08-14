@@ -9,6 +9,9 @@ namespace CensusAnalyserTest
 
         private string WRONG_CSV_FILE_PATH =  @"C:\Users\de\source\repos\CensusAnalyser\CensusAnalyserTest\resource\CensusData.csv";
 
+        private string STATE_CENSUS_DATA_PATH_INCORRECT_TYPE = @"C:\Users\de\source\repos\CensusAnalyser\CensusAnalyserTest\resource\StateCensusData.txt";
+
+
         CensusAnalyser.CensusAnalyser censusAnalyser = new CensusAnalyser.CensusAnalyser();
         public void Setup()
         {
@@ -41,6 +44,20 @@ namespace CensusAnalyserTest
                 Assert.AreEqual(CensusAnalyserException.ExceptionType.NO_SUCH_FILE, e.type);
             }
 
+        }
+
+        [Test]
+        public void givenIncorrectIndianStatesCensusCSVFileType_WhenUnmatch_ThenThrowCustomException()
+        {
+            try
+            {
+                censusAnalyser.loadStateCSVData(STATE_CENSUS_DATA_PATH_INCORRECT_TYPE);
+
+            }
+            catch (CensusAnalyserException e)
+            {
+                Assert.AreEqual(CensusAnalyserException.ExceptionType.NO_SUCH_FILE_TYPE, e.type);
+            }
         }
     }
 }
