@@ -13,6 +13,7 @@ namespace CensusAnalyserTest
 
         private string STATE_CENSUS_INCORRECT_DELIMITER_FILE = @"C:\Users\de\source\repos\CensusAnalyser\CensusAnalyserTest\resource\StateCensusData.csv";
 
+        private string STATE_CENSUS_DATA_CSV_INCORRECT_HEADER_FILE = @"C:\Users\de\source\repos\CensusAnalyser\CensusAnalyserTest\resource\StateCensusDataIncorrectHeader.csv";
 
         CensusAnalyser.CensusAnalyser censusAnalyser = new CensusAnalyser.CensusAnalyser();
         public void Setup()
@@ -74,6 +75,20 @@ namespace CensusAnalyserTest
             catch (CensusAnalyserException e)
             {
                 Assert.AreEqual(CensusAnalyserException.ExceptionType.NO_SUCH_DELIMITER, e.type);
+            }
+        }
+
+        [Test]
+        public void givenIncorrectHeaderIndianStatesCensusCSVFile_WhenUnmatch_ThenThrowCustomException()
+        {
+            try
+            {
+                censusAnalyser.loadStateCSVData(STATE_CENSUS_DATA_CSV_INCORRECT_HEADER_FILE);
+           
+            }
+            catch (CensusAnalyserException e)
+            {
+                Assert.AreEqual(CensusAnalyserException.ExceptionType.NO_SUCH_HEADER, e.type);
             }
         }
     }

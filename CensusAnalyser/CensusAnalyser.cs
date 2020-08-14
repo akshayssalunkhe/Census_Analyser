@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 
 namespace CensusAnalyser
@@ -25,6 +26,15 @@ namespace CensusAnalyser
                 {
                     throw new CensusAnalyserException("Incorrect delimiter", CensusAnalyserException.ExceptionType.NO_SUCH_DELIMITER);
                 }
+            }
+
+            List<CSVStateCensus> list = new List<CSVStateCensus>();
+            StreamReader reader = new StreamReader(csvFilePath);
+            string header = reader.ReadLine();
+
+            if (!header.Contains("State") || !header.Contains("Population") || !header.Contains("AreaInSqKm") || !header.Contains("DensityPerSqKm"))
+            {
+                throw new CensusAnalyserException("Incorrect header", CensusAnalyserException.ExceptionType.NO_SUCH_HEADER);
             }
 
             return lines.Length - 1;
