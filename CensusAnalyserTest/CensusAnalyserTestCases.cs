@@ -11,6 +11,8 @@ namespace CensusAnalyserTest
 
         private string STATE_CENSUS_DATA_PATH_INCORRECT_TYPE = @"C:\Users\de\source\repos\CensusAnalyser\CensusAnalyserTest\resource\StateCensusData.txt";
 
+        private string STATE_CENSUS_INCORRECT_DELIMITER_FILE = @"C:\Users\de\source\repos\CensusAnalyser\CensusAnalyserTest\resource\StateCensusData.csv";
+
 
         CensusAnalyser.CensusAnalyser censusAnalyser = new CensusAnalyser.CensusAnalyser();
         public void Setup()
@@ -57,6 +59,21 @@ namespace CensusAnalyserTest
             catch (CensusAnalyserException e)
             {
                 Assert.AreEqual(CensusAnalyserException.ExceptionType.NO_SUCH_FILE_TYPE, e.type);
+            }
+        }
+
+
+        [Test]
+        public void givenIncorrectDelimiterCSVFile_WhenUnmatch_ThenThrowCustomException()
+        {
+            try
+            {
+                censusAnalyser.loadStateCSVData(STATE_CENSUS_INCORRECT_DELIMITER_FILE);
+
+            }
+            catch (CensusAnalyserException e)
+            {
+                Assert.AreEqual(CensusAnalyserException.ExceptionType.NO_SUCH_DELIMITER, e.type);
             }
         }
     }
