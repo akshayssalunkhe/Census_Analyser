@@ -4,15 +4,20 @@ namespace CensusAnalyserTest
 {
     public class Tests
     {
-        [SetUp]
+        private string STATE_CENSUS_DATA_PATH = @"C:\Users\de\source\repos\CensusAnalyser\CensusAnalyserTest\resource\StateCensusData.csv";
+
+        CensusAnalyser.CensusAnalyser censusAnalyser = new CensusAnalyser.CensusAnalyser();
         public void Setup()
         {
         }
 
         [Test]
-        public void Test1()
+
+        public void givenStatesCensusCSVFile_WhenNumberOfRecordsMatches_ShouldReturnTrue()
         {
-            Assert.Pass();
+            int numberOfRecord = censusAnalyser.loadStateCSVData(STATE_CENSUS_DATA_PATH);
+            Assert.AreEqual(29, numberOfRecord);
         }
+
     }
 }
