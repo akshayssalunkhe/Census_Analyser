@@ -19,6 +19,14 @@ namespace CensusAnalyser
             }
 
             string[] lines = File.ReadAllLines(csvFilePath);
+            foreach (string line in lines)
+            {
+                if (!line.Contains(','))
+                {
+                    throw new CensusAnalyserException("Incorrect delimiter", CensusAnalyserException.ExceptionType.NO_SUCH_DELIMITER);
+                }
+            }
+
             return lines.Length - 1;
 
         }
