@@ -40,6 +40,12 @@ namespace CensusAnalyser
             return lines.Length - 1;
 
         }
-    
+
+        public int loadCSVStateCodeFile(string csvFilePath)
+        {
+            string[] lines = File.ReadAllLines(csvFilePath);
+            return lines.Length - 1;
+        }
+
     }
 }
