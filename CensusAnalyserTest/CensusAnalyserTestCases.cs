@@ -7,13 +7,24 @@ namespace CensusAnalyserTest
     {
         private string STATE_CENSUS_DATA_PATH = @"C:\Users\de\source\repos\CensusAnalyser\CensusAnalyserTest\resource\StateCensusData.csv";
 
-        private string WRONG_CSV_FILE_PATH =  @"C:\Users\de\source\repos\CensusAnalyser\CensusAnalyserTest\resource\CensusData.csv";
+        private string WRONG_CSV_FILE_PATH = @"C:\Users\de\source\repos\CensusAnalyser\CensusAnalyserTest\resource\CensusData.csv";
 
         private string STATE_CENSUS_DATA_PATH_INCORRECT_TYPE = @"C:\Users\de\source\repos\CensusAnalyser\CensusAnalyserTest\resource\StateCensusData.txt";
 
         private string STATE_CENSUS_INCORRECT_DELIMITER_FILE = @"C:\Users\de\source\repos\CensusAnalyser\CensusAnalyserTest\resource\StateCensusData.csv";
 
         private string STATE_CENSUS_DATA_CSV_INCORRECT_HEADER_FILE = @"C:\Users\de\source\repos\CensusAnalyser\CensusAnalyserTest\resource\StateCensusDataIncorrectHeader.csv";
+
+        private string STATE_CODE_DATA_PATH = @"C:\Users\de\source\repos\CensusAnalyser\CensusAnalyserTest\resource\StateCode.csv";
+
+        private string WRONG_CSV_CODE_FILE_PATH = @"C:\Users\de\source\repos\CensusAnalyser\CensusAnalyserTest\resource\StateCode.csv";
+
+        private string STATE_CODE_DATA_PATH_INCORRECT_TYPE = @"C:\Users\de\source\repos\CensusAnalyser\CensusAnalyserTest\resource\StateCode.txt";
+
+        private string STATE_CODE_INCORRECT_DELIMITER_FILE = @"C:\Users\de\source\repos\CensusAnalyser\CensusAnalyserTest\resource\StateCodeIncorrectDelimiter.csv";
+
+        private string STATE_CODE_DATA_CSV_INCORRECT_HEADER_FILE = @"C:\Users\de\source\repos\CensusAnalyser\CensusAnalyserTest\resource\StateCodeIncorrectHeader.csv";
+
 
         CensusAnalyser.CensusAnalyser censusAnalyser = new CensusAnalyser.CensusAnalyser();
         public void Setup()
@@ -84,12 +95,21 @@ namespace CensusAnalyserTest
             try
             {
                 censusAnalyser.loadStateCSVData(STATE_CENSUS_DATA_CSV_INCORRECT_HEADER_FILE);
-           
+
             }
             catch (CensusAnalyserException e)
             {
                 Assert.AreEqual(CensusAnalyserException.ExceptionType.NO_SUCH_HEADER, e.type);
             }
         }
+    
+
+    [Test]
+    public void givenStatesCodeCSVFile_WhenMatchNumberOfRecord_ThenReturnTrue()
+    {
+        int numberOfRecord = censusAnalyser.loadCSVStateCodeFile(STATE_CODE_DATA_PATH);
+        Assert.AreEqual(37, numberOfRecord);
+    }
+
     }
 }
