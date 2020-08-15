@@ -5,51 +5,39 @@ using System.Linq;
 
 namespace CensusAnalyser
 {
-    public class CensusAnalyser
+    public class CensusAnalyser : ICSVBuilder
     {
-        public delegate object CSVData();
+        List<string> lines = new List<string>();
 
-        string filePath;
-        string dataHeader;
-
-        public CensusAnalyser(string filePath, string dataHeader)
+        public delegate object CSVData(string csvFilePath, string header);
+        public object loadCSVDataFile(string csvFilePath, string header)
         {
-            this.filePath = filePath;
-            this.dataHeader = dataHeader;
-        }
 
-        public CensusAnalyser()
-        {
-        }
-
-        public object loadCensusData()
-        {
-            if (!File.Exists(filePath))
+            if (!File.Exists(csvFilePath))
             {
-                throw new CensusAnalyserException("File Not Found", CensusAnalyserException.ExceptionType.NO_SUCH_FILE);
+                throw new CensusAnalyserException("File not found", CensusAnalyserException.ExceptionType.NO_SUCH_FILE);
             }
 
-            if (Path.GetExtension(filePath) != ".csv")
+            if (Path.GetExtension(csvFilePath) != ".csv")
             {
-                throw new CensusAnalyserException("Invalid File Type", CensusAnalyserException.ExceptionType.NO_SUCH_FILE_TYPE);
+                throw new CensusAnalyserException("Incorrect file type", CensusAnalyserException.ExceptionType.NO_SUCH_FILE_TYPE);
             }
 
-            string[] data = File.ReadAllLines(filePath);
-            
-            if (data[0] != dataHeader)
+            lines = File.ReadAllLines(csvFilePath).ToList();
+            foreach (string line in lines)
             {
-                throw new CensusAnalyserException("Invalid Header", CensusAnalyserException.ExceptionType.NO_SUCH_HEADER);
-            }
-            
-            foreach (string delimiter in data)
-            {
-                if (!delimiter.Contains(","))
+                if (!line.Contains(','))
                 {
-                    throw new CensusAnalyserException("Invalid Delimiter", CensusAnalyserException.ExceptionType.NO_SUCH_DELIMITER);
+                    throw new CensusAnalyserException("Incorrect delimiter", CensusAnalyserException.ExceptionType.NO_SUCH_DELIMITER);
                 }
             }
+
+            if (lines[0] != header)
+            {
+                throw new CensusAnalyserException("Incorrect header", CensusAnalyserException.ExceptionType.NO_SUCH_HEADER);
+            }
             
-            return data.Skip(1).ToArray();
+            return lines.Skip(1).ToList();
         }
     }
 }

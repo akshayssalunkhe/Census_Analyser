@@ -1,6 +1,6 @@
 ﻿namespace CensusAnalyser
 {
-    class CSVStateCode
+    public class CSVStateCode
     {
         private int srNo;
         private string stateName;
