@@ -105,11 +105,75 @@ namespace CensusAnalyserTest
     
 
     [Test]
-    public void givenStatesCodeCSVFile_WhenMatchNumberOfRecord_ThenReturnTrue()
-    {
-        int numberOfRecord = censusAnalyser.loadCSVStateCodeFile(STATE_CODE_DATA_PATH);
-        Assert.AreEqual(37, numberOfRecord);
-    }
+        public void givenStatesCodeCSVFile_WhenMatchNumberOfRecord_ThenReturnTrue()
+        {
+            int numberOfRecord = censusAnalyser.loadCSVStateCodeFile(STATE_CODE_DATA_PATH);
+            Assert.AreEqual(37, numberOfRecord);
+        }
+
+        [Test]
+        public void givenStatesCensusCSVFile_WhenUnMatchNoOfRecord_ThenReturnFalse()
+        {
+            int numberOfRecords = censusAnalyser.loadCSVStateCodeFile(STATE_CODE_DATA_PATH);
+            Assert.AreNotEqual(38, numberOfRecords);
+        }
+
+        [Test]
+        public void givenStateCensusCode_WithWrongFile_ShouldThrowCustomException()
+        {
+            try
+            {
+                censusAnalyser.loadCSVStateCodeFile(WRONG_CSV_CODE_FILE_PATH);
+            }
+            catch (CensusAnalyserException e)
+            {
+                Assert.AreEqual(CensusAnalyserException.ExceptionType.NO_SUCH_FILE, e.type);
+            }
+
+        }
+
+        [Test]
+        public void givenIncorrectIndianStatesCodeCSVFileType_WhenUnmatch_ThenThrowCustomException()
+        {
+            try
+            {
+                censusAnalyser.loadCSVStateCodeFile(STATE_CODE_DATA_PATH_INCORRECT_TYPE);
+
+            }
+            catch (CensusAnalyserException e)
+            {
+                Assert.AreEqual(CensusAnalyserException.ExceptionType.NO_SUCH_FILE_TYPE, e.type);
+            }
+        }
+
+
+        [Test]
+        public void givenIncorrectDelimiterCSVStateCodeFile_WhenUnmatch_ThenThrowCustomException()
+        {
+            try
+            {
+                censusAnalyser.loadCSVStateCodeFile(STATE_CODE_INCORRECT_DELIMITER_FILE);
+
+            }
+            catch (CensusAnalyserException e)
+            {
+                Assert.AreEqual(CensusAnalyserException.ExceptionType.NO_SUCH_DELIMITER, e.type);
+            }
+        }
+
+        [Test]
+        public void givenIncorrectHeaderStatesCodeCSVFile_WhenUnmatch_ThenThrowCustomException()
+        {
+            try
+            {
+                censusAnalyser.loadCSVStateCodeFile(STATE_CODE_DATA_CSV_INCORRECT_HEADER_FILE);
+
+            }
+            catch (CensusAnalyserException e)
+            {
+                Assert.AreEqual(CensusAnalyserException.ExceptionType.NO_SUCH_HEADER, e.type);
+            }
+        }
 
     }
 }
