@@ -76,9 +76,9 @@ namespace CensusAnalyser
                 case "stateName": return censusDataList.OrderBy(field => field.stateName).ToList();
                 case "stateCode": return censusDataList.OrderBy(field => field.stateCode).ToList();
                 case "state": return censusDataList.OrderBy(field => field.state).ToList();
-                case "area": return censusDataList.OrderBy(field => field.areaInSqKm).ToList();
                 case "population": return censusDataList.OrderBy(field => field.population).ToList();
                 case "populationDensity": return censusDataList.OrderBy(field => field.densityPerSqKm).ToList();
+                case "area": return censusDataList.OrderBy(field => field.areaInSqKm).ToList();
                 default: return censusDataList.OrderBy(field => field.tin).ToList();
             }
         }

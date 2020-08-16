@@ -188,6 +188,16 @@ namespace CensusAnalyserTest
             Assert.AreEqual("Bihar", sortedData[0].state);
         }
 
+        [Test]
+        public void givenIndianCensusData_WhenSortedOnTotalArea_ShouldReturnLargestState()
+        {
+            CensusAnalyser.CensusAnalyser censusAnalyser = new CensusAnalyser.CensusAnalyser();
+            string sortedStateCensusData = censusAnalyser.GetSortedStateWiseCensusDataInJsonFormat(STATE_CENSUS_DATA_PATH, CENSUS_DATA_HEADERS, "area", "DESC").ToString();
+            CSVStateCensus[] sortedIndianCensusData = JsonConvert.DeserializeObject<CSVStateCensus[]>(sortedStateCensusData);
+            Assert.AreEqual("Rajasthan", sortedIndianCensusData[0].state);
+        }
+
+
     }
 }
     
