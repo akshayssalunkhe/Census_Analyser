@@ -35,7 +35,7 @@ namespace CensusAnalyserTest
 
         CSVBuilderFactory csvFactory = new CSVBuilderFactory();
         CSVData csvData;
-        Dictionary<int, string> numberOfRecords = new Dictionary<int, string>();
+        Dictionary<string, CensusDTO> numberOfRecords = new Dictionary<string, CensusDTO>();
 
         [Test]
 
@@ -43,7 +43,7 @@ namespace CensusAnalyserTest
         {
             CensusAnalyser.CensusAnalyser censusAnalyser = (CensusAnalyser.CensusAnalyser)csvFactory.createCSVBuilder();
             csvData = new CSVData(censusAnalyser.loadCSVDataFile);
-            numberOfRecords = (Dictionary<int, string>)csvData(STATE_CENSUS_DATA_PATH, CENSUS_DATA_HEADERS);
+            numberOfRecords = (Dictionary<string, CensusDTO>)csvData(STATE_CENSUS_DATA_PATH, CENSUS_DATA_HEADERS);
             Assert.AreEqual(29, numberOfRecords.Count);
 
         }
@@ -53,7 +53,7 @@ namespace CensusAnalyserTest
         {
             CensusAnalyser.CensusAnalyser censusAnalyser = (CensusAnalyser.CensusAnalyser)csvFactory.createCSVBuilder();
             csvData = new CSVData(censusAnalyser.loadCSVDataFile);
-            numberOfRecords = (Dictionary<int, string>)csvData(STATE_CENSUS_DATA_PATH, CENSUS_DATA_HEADERS);
+            numberOfRecords = (Dictionary < string, CensusDTO >)csvData(STATE_CENSUS_DATA_PATH, CENSUS_DATA_HEADERS);
             Assert.AreNotEqual(30, numberOfRecords.Count);
 
         }
@@ -103,7 +103,7 @@ namespace CensusAnalyserTest
         {
             CensusAnalyser.CensusAnalyser censusAnalyser = (CensusAnalyser.CensusAnalyser)csvFactory.createCSVBuilder();
             csvData = new CSVData(censusAnalyser.loadCSVDataFile);
-            numberOfRecords = (Dictionary<int, string>)csvData(STATE_CODE_DATA_PATH, STATE_CODE_HEADERS);
+            numberOfRecords = (Dictionary<string, CensusDTO> )csvData(STATE_CODE_DATA_PATH, STATE_CODE_HEADERS);
             Assert.AreEqual(37, numberOfRecords.Count);
         
         }
@@ -113,7 +113,7 @@ namespace CensusAnalyserTest
         {
             CensusAnalyser.CensusAnalyser censusAnalyser = (CensusAnalyser.CensusAnalyser)csvFactory.createCSVBuilder();
             csvData = new CSVData(censusAnalyser.loadCSVDataFile);
-            numberOfRecords = (Dictionary<int, string>)csvData(STATE_CODE_DATA_PATH, STATE_CODE_HEADERS);
+            numberOfRecords = (Dictionary<string, CensusDTO>)csvData(STATE_CODE_DATA_PATH, STATE_CODE_HEADERS);
             Assert.AreNotEqual(30, numberOfRecords.Count);
 
         }
@@ -162,8 +162,8 @@ namespace CensusAnalyserTest
         public void givenCensusData_WhenSortedStateWiseAlphabetically_thenReturnSortedResult()
         {
             CensusAnalyser.CensusAnalyser censusAnalyser = new CensusAnalyser.CensusAnalyser();
-            string sortedStateCensusData = censusAnalyser.GetSortedStateWiseCensusData(STATE_CENSUS_DATA_PATH, CENSUS_DATA_HEADERS, 0).ToString();
-            string[] sortedData = JsonConvert.DeserializeObject<string[]>(sortedStateCensusData);
+            string sortedStateCensusData = censusAnalyser.GetSortedStateWiseCensusDataInJsonFormat(STATE_CENSUS_DATA_PATH, CENSUS_DATA_HEADERS, "state").ToString();
+            CSVStateCensus[] sortedData = JsonConvert.DeserializeObject<CSVStateCensus[]>(sortedStateCensusData);
             Assert.AreEqual("Andhra Pradesh,49386799,162968,303", sortedData[0]);
         }
 
@@ -171,8 +171,8 @@ namespace CensusAnalyserTest
         public void givenStateCodeData_WhenSortedCode_ThenReturnSortedStartResult()
         {
             CensusAnalyser.CensusAnalyser censusAnalyser = new CensusAnalyser.CensusAnalyser();
-            string sortedStateCensusData = censusAnalyser.GetSortedStateWiseCensusData(STATE_CODE_DATA_PATH, STATE_CODE_HEADERS, 3).ToString();
-            string[] sortedData = JsonConvert.DeserializeObject<string[]>(sortedStateCensusData);
+            string sortedStateCodeData = censusAnalyser.GetSortedStateWiseCensusDataInJsonFormat(STATE_CODE_DATA_PATH, STATE_CODE_HEADERS, "stateCode").ToString();
+            CSVStateCode[] sortedData = JsonConvert.DeserializeObject<CSVStateCode[]>(sortedStateCodeData);
             Assert.AreEqual("3,Andhra Pradesh New,37,AD", sortedData[0]);
         }
 

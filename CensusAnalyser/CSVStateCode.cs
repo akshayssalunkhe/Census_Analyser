@@ -1,15 +1,23 @@
-﻿namespace CensusAnalyser
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace CensusAnalyser
 {
     public class CSVStateCode
     {
-        private int srNo;
-        private string stateName;
-        private int tin;
-        private string stateCode;
+        public int srNo;
+        public string stateName;
+        public int tin;
+        public string stateCode;
 
-        public int SrNo { get => srNo; set => srNo = value; }
-        public string StateName { get => stateName; set => stateName = value; }
-        public int TIN { get => tin; set => tin = value; }
-        public string StateCode { get => stateCode; set => stateCode = value; }
+        public CSVStateCode(string srNo, string stateName, string tin, string stateCode)
+        {
+            this.srNo = Convert.ToInt32(srNo);
+            this.stateName = stateName;
+            this.tin = Convert.ToInt32(tin);
+            this.stateCode = stateCode;
+        }
+
     }
 }

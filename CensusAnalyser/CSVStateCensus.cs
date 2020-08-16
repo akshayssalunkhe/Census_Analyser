@@ -4,16 +4,19 @@ using System.Text;
 
 namespace CensusAnalyser
 {
-    class CSVStateCensus
+   public class CSVStateCensus
     {
-        private string state;
-        private string population;
-        private string areaInSqKm;
-        private string densityPerSqKm;
+        public string state;
+        public long population;
+        public long areaInSqKm;
+        public long densityPerSqKm;
 
-        public string State { get => state; set => state = value; }
-        public string Population { get => population; set => population = value; }
-        public string AreaInSqKm { get => areaInSqKm; set => areaInSqKm = value; }
-        public string DensityPerSqKm { get => densityPerSqKm; set => densityPerSqKm = value; }
+        public CSVStateCensus(string state, string population, string areaInSqKm, string densityPerSqKm)
+        {
+            this.state = state;
+            this.population = Convert.ToUInt32(population);
+            this.areaInSqKm = Convert.ToUInt32(areaInSqKm);
+            this.densityPerSqKm = Convert.ToUInt32(densityPerSqKm);
+        }
     }
 }
