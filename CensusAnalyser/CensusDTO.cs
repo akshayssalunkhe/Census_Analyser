@@ -14,6 +14,12 @@ namespace CensusAnalyser
         public long population;
         public long areaInSqKm;
         public long densityPerSqKm;
+        public long housingUnits;
+        public double totalArea;
+        public double waterArea;
+        public double landArea;
+        public double populationDensity;
+        public double housingDensity;
 
         public CensusDTO(CSVStateCensus stateCensus)
         {
@@ -29,6 +35,19 @@ namespace CensusAnalyser
             this.stateName = stateCode.stateName;
             this.srNo = stateCode.srNo;
             this.tin = stateCode.tin;
+        }
+
+        public CensusDTO(CSVUSCensus usCensus)
+        {
+            this.stateCode = usCensus.stateId;
+            this.stateName = usCensus.stateName;
+            this.population = usCensus.population;
+            this.housingDensity = usCensus.housingDensity;
+            this.totalArea = usCensus.totalArea;
+            this.waterArea = usCensus.waterArea;
+            this.landArea = usCensus.landArea;
+            this.populationDensity = usCensus.populationDensity;
+            this.housingDensity = usCensus.housingDensity;
         }
     }
 }

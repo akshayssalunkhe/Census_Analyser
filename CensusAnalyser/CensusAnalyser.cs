@@ -71,16 +71,51 @@ namespace CensusAnalyser
 
         public List<CensusDTO> getSortedData(string headerField, List<CensusDTO> censusDataList)
         {
-            switch (headerField)
+            return headerField switch
             {
-                case "stateName": return censusDataList.OrderBy(field => field.stateName).ToList();
-                case "stateCode": return censusDataList.OrderBy(field => field.stateCode).ToList();
-                case "state": return censusDataList.OrderBy(field => field.state).ToList();
-                case "population": return censusDataList.OrderBy(field => field.population).ToList();
-                case "populationDensity": return censusDataList.OrderBy(field => field.densityPerSqKm).ToList();
-                case "area": return censusDataList.OrderBy(field => field.areaInSqKm).ToList();
-                default: return censusDataList.OrderBy(field => field.tin).ToList();
+                "stateName" => censusDataList.OrderBy(field => field.stateName).ToList(),
+                "stateCode" => censusDataList.OrderBy(field => field.stateCode).ToList(),
+                "state" => censusDataList.OrderBy(field => field.state).ToList(),
+                "area" => censusDataList.OrderBy(field => field.areaInSqKm).ToList(),
+                "population" => censusDataList.OrderBy(field => field.population).ToList(),
+                "populationDensity" => censusDataList.OrderBy(field => field.densityPerSqKm).ToList(),
+                _ => censusDataList.OrderBy(field => field.tin).ToList(),
+            };
+        }
+
+        public object LoadUSCSVDataFile(string csvFilePath, string header)
+        {
+            if (!File.Exists(csvFilePath))
+            {
+                throw new CensusAnalyserException("File not found", CensusAnalyserException.ExceptionType.NO_SUCH_FILE);
             }
+
+            if (Path.GetExtension(csvFilePath) != ".csv")
+            {
+                throw new CensusAnalyserException("Incorrect file type", CensusAnalyserException.ExceptionType.NO_SUCH_FILE_TYPE);
+            }
+
+            string[] lines = File.ReadAllLines(csvFilePath);
+            foreach (string line in lines)
+            {
+                if (!line.Contains(','))
+                {
+                    throw new CensusAnalyserException("Incorrect delimiter", CensusAnalyserException.ExceptionType.NO_SUCH_DELIMITER);
+                }
+
+                string[] field = line.Split(',');
+
+                dataMap.Add(field[1], new CensusDTO(new CSVUSCensus(field[0], field[1], field[2], field[3], field[4], field[5], field[6], field[7], field[8])));
+            }
+
+            if (lines[0] != header)
+            {
+                throw new CensusAnalyserException("Incorrect header", CensusAnalyserException.ExceptionType.NO_SUCH_HEADER);
+            }
+
+            return dataMap.Skip(1).ToDictionary(field => field.Key, field => field.Value);
+
         }
     }
+    
 }
