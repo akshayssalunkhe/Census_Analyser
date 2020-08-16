@@ -179,6 +179,15 @@ namespace CensusAnalyserTest
 
         }
 
+        [Test]
+        public void givenStateCensusData_WhenSortedByPopulationDensity_ThenShouldReturnSortedMostPopulatedResult()
+        {
+            CensusAnalyser.CensusAnalyser censusAnalyser = new CensusAnalyser.CensusAnalyser();
+            string sortedStateCensusData = censusAnalyser.GetSortedStateWiseCensusDataInJsonFormat(STATE_CENSUS_DATA_PATH, CENSUS_DATA_HEADERS, "populationDensity", "ASC").ToString();
+            CSVStateCensus[] sortedData = JsonConvert.DeserializeObject<CSVStateCensus[]>(sortedStateCensusData);
+            Assert.AreEqual("Bihar", sortedData[0].state);
+        }
+
     }
 }
     
