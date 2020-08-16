@@ -52,7 +52,7 @@ namespace CensusAnalyser
                 throw new CensusAnalyserException("Incorrect header", CensusAnalyserException.ExceptionType.NO_SUCH_HEADER);
             }
 
-            return dataMap.Skip(1).ToDictionary(field => field.Key, field => field.Value);
+            return dataMap.Skip(0).ToDictionary(field => field.Key, field => field.Value);
 
         }
 
