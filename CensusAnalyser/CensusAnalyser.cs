@@ -10,11 +10,7 @@ namespace CensusAnalyser
     {
         List<string> lines = new List<string>();
 
-      //  Dictionary<int, string> dataMap = new Dictionary<int, string>();
-      //  int key = 0;
         Dictionary<string, CensusDTO> dataMap = new Dictionary<string, CensusDTO>();
-
-
 
         public delegate object CSVData(string csvFilePath, string header);
         public object loadCSVDataFile(string csvFilePath, string header)
@@ -34,9 +30,7 @@ namespace CensusAnalyser
 
             foreach (string line in lines)
             {
-        //        key++;
-          //      dataMap.Add(key, line);
-
+       
                 if (!line.Contains(','))
                 {
                     throw new CensusAnalyserException("Incorrect delimiter", CensusAnalyserException.ExceptionType.NO_SUCH_DELIMITER);
@@ -44,12 +38,14 @@ namespace CensusAnalyser
 
                 string[] field = line.Split(',');
 
-                if (csvFilePath.Contains("StateCensusData.csv"))
-                    dataMap.Add(field[0], new CensusDTO(new CSVStateCensus(field[0], field[1], field[2], field[3])));
                 if (csvFilePath.Contains("StateCode.csv"))
                     dataMap.Add(field[1], new CensusDTO(new CSVStateCode(field[0], field[1], field[2], field[3])));
+
+                if (csvFilePath.Contains("StateCensusData.csv"))
+                    dataMap.Add(field[0], new CensusDTO(new CSVStateCensus(field[0], field[1], field[2], field[3])));
+
             }
-        
+
 
             if (lines[0] != header)
             {
@@ -60,31 +56,18 @@ namespace CensusAnalyser
 
         }
 
-        /*      public object GetSortedStateWiseCensusData(string csvFilePath, string header, int headerField)
+     
+        public object GetSortedStateWiseCensusDataInJsonFormat(string csvFilePath, string header, string headerField, string sortBy)
 
-              {
-
-                Dictionary<int, string> dataMap = (Dictionary<int, string>)loadCSVDataFile(csvFilePath, header);
-                string[] lines = dataMap.Values.ToArray();
-                var data = lines;
-
-                var sortedData = from line in data
-                                 let field = line.Split(',')
-                                 orderby field[headerField]
-                                 select line;
-
-                File.WriteAllLines(header, lines.Take(1).Concat(sortedData.ToArray()));
-                List<string> sortedFile = sortedData.ToList();
-    */
-
-        public object GetSortedStateWiseCensusDataInJsonFormat(string csvFilePath, string header, string headerField)
         {
             var data = (Dictionary<string, CensusDTO>)loadCSVDataFile(csvFilePath, header);
             List<CensusDTO> censusDataList = data.Values.ToList();
             List<CensusDTO> sortedList = getSortedData(headerField, censusDataList);
+
+            if (sortBy.Contains("DESC")) sortedList.Reverse();
+
             return JsonConvert.SerializeObject(sortedList);
         }
-        // return JsonConvert.SerializeObject(sortedFile);
 
         public List<CensusDTO> getSortedData(string headerField, List<CensusDTO> censusDataList)
         {

@@ -158,23 +158,27 @@ namespace CensusAnalyserTest
             Assert.AreEqual(CensusAnalyserException.ExceptionType.NO_SUCH_HEADER, result.type);
         }
 
+        
         [Test]
         public void givenCensusData_WhenSortedStateWiseAlphabetically_thenReturnSortedResult()
         {
             CensusAnalyser.CensusAnalyser censusAnalyser = new CensusAnalyser.CensusAnalyser();
-            string sortedStateCensusData = censusAnalyser.GetSortedStateWiseCensusDataInJsonFormat(STATE_CENSUS_DATA_PATH, CENSUS_DATA_HEADERS, "state").ToString();
+            string sortedStateCensusData = censusAnalyser.GetSortedStateWiseCensusDataInJsonFormat(STATE_CENSUS_DATA_PATH, CENSUS_DATA_HEADERS, "state", "ASC").ToString();
             CSVStateCensus[] sortedData = JsonConvert.DeserializeObject<CSVStateCensus[]>(sortedStateCensusData);
-            Assert.AreEqual("Andhra Pradesh,49386799,162968,303", sortedData[0]);
+            Assert.AreEqual("Andhra Pradesh", sortedData[0].state);
+
         }
 
         [Test]
         public void givenStateCodeData_WhenSortedCode_ThenReturnSortedStartResult()
         {
             CensusAnalyser.CensusAnalyser censusAnalyser = new CensusAnalyser.CensusAnalyser();
-            string sortedStateCodeData = censusAnalyser.GetSortedStateWiseCensusDataInJsonFormat(STATE_CODE_DATA_PATH, STATE_CODE_HEADERS, "stateCode").ToString();
+            string sortedStateCodeData = censusAnalyser.GetSortedStateWiseCensusDataInJsonFormat(STATE_CODE_DATA_PATH, STATE_CODE_HEADERS, "stateCode","ASC").ToString();
             CSVStateCode[] sortedData = JsonConvert.DeserializeObject<CSVStateCode[]>(sortedStateCodeData);
-            Assert.AreEqual("3,Andhra Pradesh New,37,AD", sortedData[0]);
+            Assert.AreEqual("AD", sortedData[0].stateCode);
+
         }
 
     }
 }
+    
