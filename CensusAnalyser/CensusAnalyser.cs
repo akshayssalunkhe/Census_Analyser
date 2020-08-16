@@ -41,14 +41,14 @@ namespace CensusAnalyser
             return lines.Skip(1).ToList();
         }
 
-        public object GetSortedStateWiseCensusData(string csvFilePath, string sortedFilePath)
+        public object GetSortedStateWiseCensusData(string csvFilePath, string sortedFilePath, int headerField)
         {
             string[] lines = File.ReadAllLines(csvFilePath);
             var data = lines.Skip(1);
 
             var sortedData = from line in data
                              let field = line.Split(',')
-                             orderby field[0]
+                             orderby field[headerField]
                              select line;
 
             File.WriteAllLines(sortedFilePath, lines.Take(1).Concat(sortedData.ToArray()));

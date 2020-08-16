@@ -168,9 +168,18 @@ namespace CensusAnalyserTest
         public void givenCensusData_WhenSortedStateWiseAlphabetically_thenReturnSortedResult()
         {
             CensusAnalyser.CensusAnalyser censusAnalyser = new CensusAnalyser.CensusAnalyser();
-            string sortedStateCensusData = censusAnalyser.GetSortedStateWiseCensusData(STATE_CENSUS_DATA_PATH, SORTED_FILE_PATH).ToString();
+            string sortedStateCensusData = censusAnalyser.GetSortedStateWiseCensusData(STATE_CENSUS_DATA_PATH, SORTED_FILE_PATH, 0).ToString();
             string[] sortedData = JsonConvert.DeserializeObject<string[]>(sortedStateCensusData);
             Assert.AreEqual("Andhra Pradesh,49386799,162968,303", sortedData[0]);
+        }
+
+        [Test]
+        public void givenStateCodeData_WhenSortedCode_ThenReturnSortedStartResult()
+        {
+            CensusAnalyser.CensusAnalyser censusAnalyser = new CensusAnalyser.CensusAnalyser();
+            string sortedStateCensusData = censusAnalyser.GetSortedStateWiseCensusData(STATE_CODE_DATA_PATH, SORTED_FILE_PATH, 3).ToString();
+            string[] sortedData = JsonConvert.DeserializeObject<string[]>(sortedStateCensusData);
+            Assert.AreEqual("3,Andhra Pradesh New,37,AD", sortedData[0]);
         }
 
     }
