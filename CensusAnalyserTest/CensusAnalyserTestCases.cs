@@ -29,23 +29,23 @@ namespace CensusAnalyserTest
         private string STATE_CODE_DATA_CSV_INCORRECT_HEADER_FILE = @"C:\Users\de\source\repos\CensusAnalyser\CensusAnalyserTest\resource\StateCodeIncorrectHeader.csv";
 
         private string US_CENSUS_DATA_CSV_FILE_PATH = @"C:\Users\de\source\repos\CensusAnalyser\CensusAnalyserTest\resource\USCensusData.csv";
-       
+
         private string US_CENSUS_DATA_CSV_FILE_INCORRECT_PATH = @"C:\Users\de\source\repos\CensusAnalyser\CensusAnalyserTest\resource\USCensusDataincorrect.csv";
-        
+
         private string US_CENSUS_DATA_CSV_INCORRECT_FILE_TYPE = @"C:\Users\de\source\repos\CensusAnalyser\CensusAnalyserTest\resource\USCensusData.txt";
 
         private string US_CENSUS_DATA_CSV_INCORRECT_DELIMITER = @"C:\Users\de\source\repos\CensusAnalyser\CensusAnalyserTest\resource\USCensusDataIncorrectDelimiter.csv";
-        
+
         private string US_CENSUS_DATA_CSV_INCORRECT_HEADER = @"C:\Users\de\source\repos\CensusAnalyser\CensusAnalyserTest\resource\USCensusDataIncorrectHeader.csv";
 
         private string CENSUS_DATA_HEADERS = "State,Population,AreaInSqKm,DensityPerSqKm";
 
         private string STATE_CODE_HEADERS = "SrNo,StateName,TIN,StateCode";
-       
+
         private string US_CENSUS_HEADER = "State Id,State,Population,Housing units,Total area,Water area,Land area,Population Density,Housing Density";
 
 
-        
+
         private CensusAnalyser.CensusAnalyser censusAnalyser;
         private Dictionary<string, CensusDTO> numberOfRecords = new Dictionary<string, CensusDTO>();
         private Dictionary<string, CensusDTO> totalRecords = new Dictionary<string, CensusDTO>();
@@ -53,7 +53,7 @@ namespace CensusAnalyserTest
         [SetUp]
         public void SetUp()
         {
-            censusAnalyser= new CensusAnalyser.CensusAnalyser();
+            censusAnalyser = new CensusAnalyser.CensusAnalyser();
             this.numberOfRecords = new Dictionary<string, CensusDTO>();
             this.totalRecords = new Dictionary<string, CensusDTO>();
         }
@@ -300,6 +300,17 @@ namespace CensusAnalyserTest
             Assert.AreEqual("District of Columbia", sortedData[^1].stateName);
         }
 
+        [Test]
+        public void givenTheUSAndIndiaCensusData_WhenSortedOnPopulation_ThenShouldReturnMostPopulousStateWithDensity()
+        {
+            string indianSortedStateCensusData = censusAnalyser.GetSortedStateWiseCensusDataInJsonFormat(Country.INDIA, STATE_CENSUS_DATA_PATH, CENSUS_DATA_HEADERS, "populationDensity", "ASC").ToString();
+            CSVStateCensus[] indianSortedData = JsonConvert.DeserializeObject<CSVStateCensus[]>(indianSortedStateCensusData);
+
+            string usSortedStateCensusData = censusAnalyser.GetSortedStateWiseCensusDataInJsonFormat(Country.US, this.US_CENSUS_DATA_CSV_FILE_PATH, this.US_CENSUS_HEADER, "usPopulationDensity", "ASC").ToString();
+            CSVUSCensus[] usSortedData = JsonConvert.DeserializeObject<CSVUSCensus[]>(usSortedStateCensusData);
+
+            Assert.AreEqual(true, indianSortedData[^1].densityPerSqKm.CompareTo((long)usSortedData[^1].populationDensity) < 0);
+
+        }
     }
-}
-    
+}    
