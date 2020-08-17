@@ -41,6 +41,8 @@ namespace CensusAnalyser
                 "area" => censusDataList.OrderBy(field => field.areaInSqKm).ToList(),
                 "population" => censusDataList.OrderBy(field => field.population).ToList(),
                 "populationDensity" => censusDataList.OrderBy(field => field.densityPerSqKm).ToList(),
+                "usPopulationDensity" => censusDataList.OrderBy(field => field.populationDensity).ToList(),
+                "totalArea" => censusDataList.OrderBy(field => field.totalArea).ToList(),
                 _ => censusDataList.OrderBy(field => field.tin).ToList(),
             };
         }
