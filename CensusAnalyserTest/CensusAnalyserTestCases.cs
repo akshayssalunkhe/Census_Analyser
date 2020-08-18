@@ -59,7 +59,7 @@ namespace CensusAnalyserTest
         }
 
         [Test]
-        public void givenIndianStatesCensusCSVFile_WhenMatchNoOfRecord_ThenShouldReturnTrue()
+        public void GivenIndianStatesCensusCSVFile_WhenMatchNoOfRecord_ThenShouldReturnTrue()
         {
             this.numberOfRecords = censusAnalyser.loadCSVDataFile(Country.INDIA, STATE_CENSUS_DATA_PATH, CENSUS_DATA_HEADERS);
             this.totalRecords = censusAnalyser.loadCSVDataFile(Country.INDIA, STATE_CODE_DATA_PATH, STATE_CODE_HEADERS);
@@ -68,7 +68,7 @@ namespace CensusAnalyserTest
         }
 
         [Test]
-        public void givenIncorrectIndianStatesCensusCSVFile_WhenUnmatch_ThenShouldThrowCustomException()
+        public void GivenIncorrectIndianStatesCensusCSVFile_WhenUnmatch_ThenShouldThrowCustomException()
         {
             var censusResult = Assert.Throws<CensusAnalyserException>(() => censusAnalyser.loadCSVDataFile(Country.INDIA, WRONG_CSV_FILE_PATH, CENSUS_DATA_HEADERS));
             var codeResult = Assert.Throws<CensusAnalyserException>(() => this.censusAnalyser.loadCSVDataFile(Country.INDIA, WRONG_CSV_CODE_FILE_PATH, STATE_CODE_HEADERS));
@@ -77,7 +77,7 @@ namespace CensusAnalyserTest
         }
 
         [Test]
-        public void givenIncorrectIndianStatesCensusCSVFileType_WhenUnmatch_ThenShouldThrowCustomException()
+        public void GivenIncorrectIndianStatesCensusCSVFileType_WhenUnmatch_ThenShouldThrowCustomException()
         {
             var censusResult = Assert.Throws<CensusAnalyserException>(() => censusAnalyser.loadCSVDataFile(Country.INDIA, STATE_CENSUS_DATA_PATH_INCORRECT_TYPE, CENSUS_DATA_HEADERS));
             var codeResult = Assert.Throws<CensusAnalyserException>(() => censusAnalyser.loadCSVDataFile(Country.INDIA, STATE_CODE_DATA_PATH_INCORRECT_TYPE, STATE_CODE_HEADERS));
@@ -86,7 +86,7 @@ namespace CensusAnalyserTest
         }
 
         [Test]
-        public void givenIncorrectDelimiterIndianStatesCensusCSVFile_WhenUnmatch_ThenShouldThrowCustomException()
+        public void GivenIncorrectDelimiterIndianStatesCensusCSVFile_WhenUnmatch_ThenShouldThrowCustomException()
         {
             var censusResult = Assert.Throws<CensusAnalyserException>(() => censusAnalyser.loadCSVDataFile(Country.INDIA, STATE_CENSUS_INCORRECT_DELIMITER_FILE, CENSUS_DATA_HEADERS));
             var codeResult = Assert.Throws<CensusAnalyserException>(() => censusAnalyser.loadCSVDataFile(Country.INDIA, STATE_CODE_INCORRECT_DELIMITER_FILE, STATE_CODE_HEADERS));
@@ -95,7 +95,7 @@ namespace CensusAnalyserTest
         }
 
         [Test]
-        public void givenIncorrectHeaderIndianStatesCensusCSVFile_WhenUnmatch_ThenShouldThrowCustomException()
+        public void GivenIncorrectHeaderIndianStatesCensusCSVFile_WhenUnmatch_ThenShouldThrowCustomException()
         {
             var censusResult = Assert.Throws<CensusAnalyserException>(() => censusAnalyser.loadCSVDataFile(Country.INDIA, this.STATE_CENSUS_DATA_CSV_INCORRECT_HEADER_FILE, CENSUS_DATA_HEADERS));
             var codeResult = Assert.Throws<CensusAnalyserException>(() => censusAnalyser.loadCSVDataFile(Country.INDIA, STATE_CODE_DATA_CSV_INCORRECT_HEADER_FILE, STATE_CODE_HEADERS));
@@ -104,42 +104,42 @@ namespace CensusAnalyserTest
         }
 
         [Test]
-        public void givenIndianStatesCodeCSVFile_WhenMatchNoOfRecord_ThenShouldReturnTrue()
+        public void GivenIndianStatesCodeCSVFile_WhenMatchNoOfRecord_ThenShouldReturnTrue()
         {
             this.numberOfRecords = censusAnalyser.loadCSVDataFile(Country.INDIA, STATE_CODE_DATA_PATH, STATE_CODE_HEADERS);
             Assert.AreEqual(37, this.numberOfRecords.Count);
         }
 
         [Test]
-        public void givenIncorrectIndianStatesCodeCSVFile_WhenUnmatch_ThenShouldThrowCustomException()
+        public void GivenIncorrectIndianStatesCodeCSVFile_WhenUnmatch_ThenShouldThrowCustomException()
         {
             var result = Assert.Throws<CensusAnalyserException>(() => censusAnalyser.loadCSVDataFile(Country.INDIA, WRONG_CSV_CODE_FILE_PATH, STATE_CODE_HEADERS));
             Assert.AreEqual(CensusAnalyserException.ExceptionType.NO_SUCH_FILE, result.type);
         }
 
         [Test]
-        public void givenIncorrectIndianStatesCodeCSVFileType_WhenUnmatch_ThenShouldThrowCustomException()
+        public void GivenIncorrectIndianStatesCodeCSVFileType_WhenUnmatch_ThenShouldThrowCustomException()
         {
             var result = Assert.Throws<CensusAnalyserException>(() => censusAnalyser.loadCSVDataFile(Country.INDIA, STATE_CODE_DATA_PATH_INCORRECT_TYPE, STATE_CODE_HEADERS));
             Assert.AreEqual(CensusAnalyserException.ExceptionType.NO_SUCH_FILE_TYPE, result.type);
         }
 
         [Test]
-        public void givenIncorrectDelimiterIndianStatesCodeCSVFile_WhenUnmatch_ThenShouldThrowCustomException()
+        public void GivenIncorrectDelimiterIndianStatesCodeCSVFile_WhenUnmatch_ThenShouldThrowCustomException()
         {
             var result = Assert.Throws<CensusAnalyserException>(() => censusAnalyser.loadCSVDataFile(Country.INDIA, STATE_CODE_INCORRECT_DELIMITER_FILE, STATE_CODE_HEADERS));
             Assert.AreEqual(CensusAnalyserException.ExceptionType.NO_SUCH_DELIMITER, result.type);
         }
 
         [Test]
-        public void givenIncorrectHeaderIndianStatesCodeCSVFile_WhenUnmatch_ThenShouldThrowCustomException()
+        public void GivenIncorrectHeaderIndianStatesCodeCSVFile_WhenUnmatch_ThenShouldThrowCustomException()
         {
             var result = Assert.Throws<CensusAnalyserException>(() => censusAnalyser.loadCSVDataFile(Country.INDIA, STATE_CODE_DATA_CSV_INCORRECT_HEADER_FILE, STATE_CODE_HEADERS));
             Assert.AreEqual(CensusAnalyserException.ExceptionType.NO_SUCH_HEADER, result.type);
         }
 
         [Test]
-        public void givenIndianCensusData_WhenSortedState_ThenShouldReturnSortedStartResult()
+        public void GivenIndianCensusData_WhenSortedState_ThenShouldReturnSortedStartResult()
         {
             string sortedStateCensusData = censusAnalyser.GetSortedStateWiseCensusDataInJsonFormat(Country.INDIA, this.STATE_CENSUS_DATA_PATH, CENSUS_DATA_HEADERS, "state", "ASC").ToString();
             CSVStateCensus[] sortedData = JsonConvert.DeserializeObject<CSVStateCensus[]>(sortedStateCensusData);
@@ -147,7 +147,7 @@ namespace CensusAnalyserTest
         }
 
         [Test]
-        public void givenIndianCensusData_WhenSortedState_ThenShouldReturnSortedLastResult()
+        public void GivenIndianCensusData_WhenSortedState_ThenShouldReturnSortedLastResult()
         {
             string sortedStateCensusData = censusAnalyser.GetSortedStateWiseCensusDataInJsonFormat(Country.INDIA, STATE_CENSUS_DATA_PATH, CENSUS_DATA_HEADERS, "state", "DESC").ToString();
             CSVStateCensus[] sortedData = JsonConvert.DeserializeObject<CSVStateCensus[]>(sortedStateCensusData);
@@ -155,7 +155,7 @@ namespace CensusAnalyserTest
         }
 
         [Test]
-        public void givenStateCodeData_WhenSortedCode_ThenShouldReturnSortedStartResult()
+        public void GivenStateCodeData_WhenSortedCode_ThenShouldReturnSortedStartResult()
         {
             string sortedStateCodeData = censusAnalyser.GetSortedStateWiseCensusDataInJsonFormat(Country.INDIA, this.STATE_CODE_DATA_PATH, STATE_CODE_HEADERS, "stateCode", "ASC").ToString();
             CSVStateCode[] sortedData = JsonConvert.DeserializeObject<CSVStateCode[]>(sortedStateCodeData);
@@ -163,7 +163,7 @@ namespace CensusAnalyserTest
         }
 
         [Test]
-        public void givenStateCodeData_WhenSortedCode_ThenShouldReturnSortedLastResult()
+        public void GivenStateCodeData_WhenSortedCode_ThenShouldReturnSortedLastResult()
         {
             string sortedStateCodeData = censusAnalyser.GetSortedStateWiseCensusDataInJsonFormat(Country.INDIA, STATE_CODE_DATA_PATH, STATE_CODE_HEADERS, "stateCode", "DESC").ToString();
             CSVStateCode[] sortedData = JsonConvert.DeserializeObject<CSVStateCode[]>(sortedStateCodeData);
@@ -171,7 +171,7 @@ namespace CensusAnalyserTest
         }
 
         [Test]
-        public void givenStateCensusData_WhenSortedByPopulation_ThenShouldReturnSortedMostPopulatedResult()
+        public void GivenStateCensusData_WhenSortedByPopulation_ThenShouldReturnSortedMostPopulatedResult()
         {
             string sortedStateCensusData = censusAnalyser.GetSortedStateWiseCensusDataInJsonFormat(Country.INDIA, STATE_CENSUS_DATA_PATH, CENSUS_DATA_HEADERS, "population", "ASC").ToString();
             CSVStateCensus[] sortedData = JsonConvert.DeserializeObject<CSVStateCensus[]>(sortedStateCensusData);
@@ -179,7 +179,7 @@ namespace CensusAnalyserTest
         }
 
         [Test]
-        public void givenStateCensusData_WhenSortedByPopulation_ThenShouldReturnSortedLeastPopulatedResult()
+        public void GivenStateCensusData_WhenSortedByPopulation_ThenShouldReturnSortedLeastPopulatedResult()
         {
             string sortedStateCensusData = censusAnalyser.GetSortedStateWiseCensusDataInJsonFormat(Country.INDIA, STATE_CENSUS_DATA_PATH, CENSUS_DATA_HEADERS, "population", "DESC").ToString();
             CSVStateCensus[] sortedData = JsonConvert.DeserializeObject<CSVStateCensus[]>(sortedStateCensusData);
@@ -187,7 +187,7 @@ namespace CensusAnalyserTest
         }
 
         [Test]
-        public void givenStateCensusData_WhenSortedByPopulationDensity_ThenShouldReturnSortedMostPopulatedDensityResult()
+        public void GivenStateCensusData_WhenSortedByPopulationDensity_ThenShouldReturnSortedMostPopulatedDensityResult()
         {
             string sortedStateCensusData = censusAnalyser.GetSortedStateWiseCensusDataInJsonFormat(Country.INDIA, STATE_CENSUS_DATA_PATH, CENSUS_DATA_HEADERS, "populationDensity", "ASC").ToString();
             CSVStateCensus[] sortedData = JsonConvert.DeserializeObject<CSVStateCensus[]>(sortedStateCensusData);
@@ -195,7 +195,7 @@ namespace CensusAnalyserTest
         }
 
         [Test]
-        public void givenStateCensusData_WhenSortedByPopulationDensity_ThenShouldReturnSortedLeastPopulatedDensityResult()
+        public void GivenStateCensusData_WhenSortedByPopulationDensity_ThenShouldReturnSortedLeastPopulatedDensityResult()
         {
             string sortedStateCensusData = censusAnalyser.GetSortedStateWiseCensusDataInJsonFormat(Country.INDIA, STATE_CENSUS_DATA_PATH, CENSUS_DATA_HEADERS, "populationDensity", "DESC").ToString();
             CSVStateCensus[] sortedData = JsonConvert.DeserializeObject<CSVStateCensus[]>(sortedStateCensusData);
@@ -203,7 +203,7 @@ namespace CensusAnalyserTest
         }
 
         [Test]
-        public void givenStateCensusData_WhenSortedByArea_ThenShouldReturnSortedMostAreaResult()
+        public void GivenStateCensusData_WhenSortedByArea_ThenShouldReturnSortedMostAreaResult()
         {
             string sortedStateCensusData = censusAnalyser.GetSortedStateWiseCensusDataInJsonFormat(Country.INDIA, STATE_CENSUS_DATA_PATH, CENSUS_DATA_HEADERS, "area", "ASC").ToString();
             CSVStateCensus[] sortedData = JsonConvert.DeserializeObject<CSVStateCensus[]>(sortedStateCensusData);
@@ -211,7 +211,7 @@ namespace CensusAnalyserTest
         }
 
         [Test]
-        public void givenStateCensusData_WhenSortedByArea_ThenShouldReturnSortedLeastAreaResult()
+        public void GivenStateCensusData_WhenSortedByArea_ThenShouldReturnSortedLeastAreaResult()
         {
             string sortedStateCensusData = censusAnalyser.GetSortedStateWiseCensusDataInJsonFormat(Country.INDIA, STATE_CENSUS_DATA_PATH, CENSUS_DATA_HEADERS, "area", "DESC").ToString();
             CSVStateCensus[] sortedData = JsonConvert.DeserializeObject<CSVStateCensus[]>(sortedStateCensusData);
@@ -219,41 +219,41 @@ namespace CensusAnalyserTest
         }
 
         [Test]
-        public void givenUSCensusCSVFile_WhenUnMatchNumberOfRecord_ThenShouldReturnFalse()
+        public void GivenUSCensusCSVFile_WhenUnMatchNumberOfRecord_ThenShouldReturnFalse()
         {
             this.numberOfRecords = censusAnalyser.loadCSVDataFile(Country.US, this.US_CENSUS_DATA_CSV_FILE_PATH, this.US_CENSUS_HEADER);
             Assert.AreNotEqual(51, this.numberOfRecords.Count);
         }
 
         [Test]
-        public void givenIncorrectUSCensusCSVFile_WhenUnmatch_ThenShouldThrowCustomException()
+        public void GivenIncorrectUSCensusCSVFile_WhenUnmatch_ThenShouldThrowCustomException()
         {
             var result = Assert.Throws<CensusAnalyserException>(() => censusAnalyser.loadCSVDataFile(Country.US, this.US_CENSUS_DATA_CSV_FILE_INCORRECT_PATH, this.US_CENSUS_HEADER));
             Assert.AreEqual(CensusAnalyserException.ExceptionType.NO_SUCH_FILE, result.type);
         }
 
         [Test]
-        public void givenIncorrectUSCensusCSVFileType_WhenUnmatch_ThenShouldThrowCustomException()
+        public void GivenIncorrectUSCensusCSVFileType_WhenUnmatch_ThenShouldThrowCustomException()
         {
             var result = Assert.Throws<CensusAnalyserException>(() => censusAnalyser.loadCSVDataFile(Country.US, this.US_CENSUS_DATA_CSV_INCORRECT_FILE_TYPE, this.US_CENSUS_HEADER));
             Assert.AreEqual(CensusAnalyserException.ExceptionType.NO_SUCH_FILE_TYPE, result.type);
         }
         [Test]
-        public void givenIncorrectDelimiterUSCensusCSVFile_WhenUnmatch_ThenShouldThrowCustomException()
+        public void GivenIncorrectDelimiterUSCensusCSVFile_WhenUnmatch_ThenShouldThrowCustomException()
         {
             var result = Assert.Throws<CensusAnalyserException>(() => censusAnalyser.loadCSVDataFile(Country.US, this.US_CENSUS_DATA_CSV_INCORRECT_DELIMITER, this.US_CENSUS_HEADER));
             Assert.AreEqual(CensusAnalyserException.ExceptionType.NO_SUCH_DELIMITER, result.type);
         }
 
         [Test]
-        public void givenIncorrectHeaderUSCensusCSVFile_WhenUnmatch_ThenShouldThrowCustomException()
+        public void GivenIncorrectHeaderUSCensusCSVFile_WhenUnmatch_ThenShouldThrowCustomException()
         {
             var result = Assert.Throws<CensusAnalyserException>(() => censusAnalyser.loadCSVDataFile(Country.US, this.US_CENSUS_DATA_CSV_INCORRECT_HEADER, this.US_CENSUS_HEADER));
             Assert.AreEqual(CensusAnalyserException.ExceptionType.NO_SUCH_HEADER, result.type);
         }
 
         [Test]
-        public void givenUSCensusData_WhenSortedByPopulation_ThenShouldReturnSortedMostPopulatedResult()
+        public void GivenUSCensusData_WhenSortedByPopulation_ThenShouldReturnSortedMostPopulatedResult()
         {
             string sortedStateCensusData = censusAnalyser.GetSortedStateWiseCensusDataInJsonFormat(Country.US, this.US_CENSUS_DATA_CSV_FILE_PATH, this.US_CENSUS_HEADER, "population", "ASC").ToString();
             CSVUSCensus[] sortedData = JsonConvert.DeserializeObject<CSVUSCensus[]>(sortedStateCensusData);
@@ -261,7 +261,7 @@ namespace CensusAnalyserTest
         }
 
         [Test]
-        public void givenUSCensusData_WhenSortedByPopulation_ThenShouldReturnSortedLeastPopulatedResult()
+        public void GivenUSCensusData_WhenSortedByPopulation_ThenShouldReturnSortedLeastPopulatedResult()
         {
             string sortedStateCensusData = censusAnalyser.GetSortedStateWiseCensusDataInJsonFormat(Country.US, this.US_CENSUS_DATA_CSV_FILE_PATH, this.US_CENSUS_HEADER, "population", "DESC").ToString();
             CSVUSCensus[] sortedData = JsonConvert.DeserializeObject<CSVUSCensus[]>(sortedStateCensusData);
@@ -269,7 +269,7 @@ namespace CensusAnalyserTest
         }
 
         [Test]
-        public void givenUSCensusData_WhenSortedByPopulationDensity_ThenShouldReturnSortedMostDensedResult()
+        public void GivenUSCensusData_WhenSortedByPopulationDensity_ThenShouldReturnSortedMostDensedResult()
         {
             string sortedStateCensusData = censusAnalyser.GetSortedStateWiseCensusDataInJsonFormat(Country.US, this.US_CENSUS_DATA_CSV_FILE_PATH, this.US_CENSUS_HEADER, "usPopulationDensity", "ASC").ToString();
             CSVUSCensus[] sortedData = JsonConvert.DeserializeObject<CSVUSCensus[]>(sortedStateCensusData);
@@ -301,7 +301,7 @@ namespace CensusAnalyserTest
         }
 
         [Test]
-        public void givenTheUSAndIndiaCensusData_WhenSortedOnPopulation_ThenShouldReturnMostPopulousStateWithDensity()
+        public void GivenTheUSAndIndiaCensusData_WhenSortedOnPopulation_ThenShouldReturnMostPopulousStateWithDensity()
         {
             string indianSortedStateCensusData = censusAnalyser.GetSortedStateWiseCensusDataInJsonFormat(Country.INDIA, STATE_CENSUS_DATA_PATH, CENSUS_DATA_HEADERS, "populationDensity", "ASC").ToString();
             CSVStateCensus[] indianSortedData = JsonConvert.DeserializeObject<CSVStateCensus[]>(indianSortedStateCensusData);
