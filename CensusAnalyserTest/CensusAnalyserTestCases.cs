@@ -261,11 +261,27 @@ namespace CensusAnalyserTest
         }
 
         [Test]
+        public void GivenUSCensusData_WhenSortedByPopulation_ThenShouldReturnSortedInAscendingPopulatedResult()
+        {
+            string sortedStateCensusData = censusAnalyser.GetSortedStateWiseCensusDataInJsonFormat(Country.US, this.US_CENSUS_DATA_CSV_FILE_PATH, this.US_CENSUS_HEADER, "population", "ASC").ToString();
+            CSVUSCensus[] sortedData = JsonConvert.DeserializeObject<CSVUSCensus[]>(sortedStateCensusData);
+            Assert.AreEqual("Wyoming", sortedData[0].stateName);
+        }
+
+        [Test]
         public void GivenUSCensusData_WhenSortedByPopulation_ThenShouldReturnSortedLeastPopulatedResult()
         {
             string sortedStateCensusData = censusAnalyser.GetSortedStateWiseCensusDataInJsonFormat(Country.US, this.US_CENSUS_DATA_CSV_FILE_PATH, this.US_CENSUS_HEADER, "population", "DESC").ToString();
             CSVUSCensus[] sortedData = JsonConvert.DeserializeObject<CSVUSCensus[]>(sortedStateCensusData);
             Assert.AreEqual("Wyoming", sortedData[^1].stateName);
+        }
+
+        [Test]
+        public void GivenUSCensusData_WhenSortedByPopulation_ThenShouldReturnSortedInDescendingPopulatedResult()
+        {
+            string sortedStateCensusData = censusAnalyser.GetSortedStateWiseCensusDataInJsonFormat(Country.US, this.US_CENSUS_DATA_CSV_FILE_PATH, this.US_CENSUS_HEADER, "population", "DESC").ToString();
+            CSVUSCensus[] sortedData = JsonConvert.DeserializeObject<CSVUSCensus[]>(sortedStateCensusData);
+            Assert.AreEqual("California", sortedData[0].stateName);
         }
 
         [Test]
@@ -277,11 +293,27 @@ namespace CensusAnalyserTest
         }
 
         [Test]
+        public void GivenUSCensusData_WhenSortedByPopulationDensity_ThenShouldReturnSortedAscendingDensedResult()
+        {
+            string sortedStateCensusData = censusAnalyser.GetSortedStateWiseCensusDataInJsonFormat(Country.US, this.US_CENSUS_DATA_CSV_FILE_PATH, this.US_CENSUS_HEADER, "usPopulationDensity", "ASC").ToString();
+            CSVUSCensus[] sortedData = JsonConvert.DeserializeObject<CSVUSCensus[]>(sortedStateCensusData);
+            Assert.AreEqual("Alaska", sortedData[0].stateName);
+        }
+
+        [Test]
         public void GivenUSCensusData_WhenSortedByPopulationDensity_ThenReturnSortedLeastDensedResult()
         {
             string sortedStateCensusData = censusAnalyser.GetSortedStateWiseCensusDataInJsonFormat(Country.US, this.US_CENSUS_DATA_CSV_FILE_PATH, this.US_CENSUS_HEADER, "usPopulationDensity", "DESC").ToString();
             CSVUSCensus[] sortedData = JsonConvert.DeserializeObject<CSVUSCensus[]>(sortedStateCensusData);
             Assert.AreEqual("Alaska", sortedData[^1].stateName);
+        }
+
+        [Test]
+        public void GivenUSCensusData_WhenSortedByPopulationDensity_ThenReturnSortedDescendingDensedResult()
+        {
+            string sortedStateCensusData = censusAnalyser.GetSortedStateWiseCensusDataInJsonFormat(Country.US, this.US_CENSUS_DATA_CSV_FILE_PATH, this.US_CENSUS_HEADER, "usPopulationDensity", "DESC").ToString();
+            CSVUSCensus[] sortedData = JsonConvert.DeserializeObject<CSVUSCensus[]>(sortedStateCensusData);
+            Assert.AreNotEqual("Alaska", sortedData[0].stateName);
         }
 
         [Test]
@@ -298,6 +330,14 @@ namespace CensusAnalyserTest
             string sortedStateCensusData = censusAnalyser.GetSortedStateWiseCensusDataInJsonFormat(Country.US, this.US_CENSUS_DATA_CSV_FILE_PATH, this.US_CENSUS_HEADER, "totalArea", "DESC").ToString();
             CSVUSCensus[] sortedData = JsonConvert.DeserializeObject<CSVUSCensus[]>(sortedStateCensusData);
             Assert.AreEqual("District of Columbia", sortedData[^1].stateName);
+        }
+
+        [Test]
+        public void GivenUSCensusData_WhenSortedByPopulationDensity_ThenReturnSortedDescendingSmallAreaResult()
+        {
+            string sortedStateCensusData = censusAnalyser.GetSortedStateWiseCensusDataInJsonFormat(Country.US, this.US_CENSUS_DATA_CSV_FILE_PATH, this.US_CENSUS_HEADER, "totalArea", "DESC").ToString();
+            CSVUSCensus[] sortedData = JsonConvert.DeserializeObject<CSVUSCensus[]>(sortedStateCensusData);
+            Assert.AreNotEqual("District of Columbia", sortedData[0].stateName);
         }
 
         [Test]
